@@ -1,4 +1,4 @@
-# real_estate_app
+# Real Estate Mobile App
 
 Flutter Engineer Translation Test. A real estate mobile app by John Wogu
 
