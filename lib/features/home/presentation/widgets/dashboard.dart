@@ -15,83 +15,9 @@ class Dashboard extends StatelessWidget {
       slivers: [
         // Shrinkable top content
         SliverAppBar(
-          expandedHeight: MediaQuery.sizeOf(context).height * 0.54,
+          expandedHeight: MediaQuery.sizeOf(context).height * 0.6,
           backgroundColor: Colors.transparent,
           flexibleSpace: FlexibleSpaceBar(
-            title: Container(
-              height: 150.0,
-              // color: Colors.green,
-              alignment: Alignment.topCenter,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              margin: const EdgeInsets.only(bottom: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 140.0,
-                      width: 140.0,
-                      clipBehavior: Clip.hardEdge,
-                      alignment: Alignment.topCenter,
-                      padding: const EdgeInsets.symmetric(vertical: 25.0),
-                      decoration: BoxDecoration(
-                          color: Palette.primary, shape: BoxShape.circle),
-                      child: Column(
-                        children: [
-                          const AppText("BUY", size: 10, color: Colors.white),
-                          const SizedBox(height: 20.0),
-                          Countup(
-                            begin: 100,
-                            end: 1034,
-                            duration: const Duration(seconds: 4),
-                            separator: ' ',
-                            style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white),
-                          ),
-                          const AppText("offers",
-                              size: 10.0, color: Colors.white)
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 6.0),
-                  Expanded(
-                    child: Container(
-                      height: 110.0,
-                      width: 110.0,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.bottomCenter,
-                              colors: [Palette.offwhite, Colors.white]),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12.0)),
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Column(
-                        children: [
-                          AppText("RENT", size: 10, color: Palette.secondary),
-                          const SizedBox(height: 20.0),
-                          Countup(
-                            begin: 1000,
-                            end: 2212,
-                            duration: const Duration(seconds: 4),
-                            separator: ' ',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                color: Palette.secondary),
-                          ),
-                          AppText("offers",
-                              size: 10.0, color: Palette.secondary)
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             background: AnimatedContainer(
               duration: const Duration(seconds: 1),
               height: MediaQuery.sizeOf(context).height,
@@ -157,7 +83,90 @@ class Dashboard extends StatelessWidget {
                       weight: FontWeight.w500,
                       color: Palette.black),
                   AppText("perfect place",
-                      size: 32.0, weight: FontWeight.w500, color: Palette.black)
+                      size: 32.0,
+                      weight: FontWeight.w500,
+                      color: Palette.black),
+                  const SizedBox(height: 30.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            clipBehavior: Clip.hardEdge,
+                            alignment: Alignment.topCenter,
+                            padding: const EdgeInsets.symmetric(vertical: 25.0),
+                            decoration: BoxDecoration(
+                                color: Palette.primary, shape: BoxShape.circle),
+                            child: Column(
+                              children: [
+                                const AppText("BUY",
+                                    size: 14, color: Colors.white),
+                                const SizedBox(height: 20.0),
+                                Countup(
+                                  begin: 800,
+                                  end: 1034,
+                                  duration: const Duration(seconds: 4),
+                                  separator: ' ',
+                                  style: const TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white),
+                                ),
+                                const AppText("offers",
+                                    size: 10.0, color: Colors.white)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      // const SizedBox(width: 6.0),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.bottomCenter,
+                                    colors: [Palette.offwhite, Colors.white]),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12.0)),
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 25.0),
+                              decoration: const BoxDecoration(
+                                  color: Colors.transparent,
+                                  shape: BoxShape.circle),
+                              constraints:
+                                  const BoxConstraints(maxWidth: 150.0),
+                              child: Column(
+                                children: [
+                                  AppText("RENT",
+                                      size: 14, color: Palette.secondary),
+                                  const SizedBox(height: 20.0),
+                                  Countup(
+                                    begin: 2000,
+                                    end: 2212,
+                                    duration: const Duration(seconds: 4),
+                                    separator: ' ',
+                                    style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w700,
+                                        color: Palette.secondary),
+                                  ),
+                                  AppText("offers",
+                                      size: 10.0, color: Palette.secondary)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

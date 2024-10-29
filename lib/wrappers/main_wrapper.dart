@@ -1,7 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -63,59 +60,57 @@ class AppBottomNavBar extends StatelessWidget {
             Container(
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.75),
+                  color: Colors.black.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(34.0)),
               child: ClipRRect(
                   clipBehavior: Clip.hardEdge,
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                    child: Card(
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(34.0)),
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 2.0, horizontal: 20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                NavButton(
-                                    index: 0,
-                                    child: SvgPicture.asset(
-                                        "assets/icons/search.svg",
-                                        height: 24.0,
-                                        color: Palette.offwhite)),
-                                NavButton(
-                                    index: 1,
-                                    child: SvgPicture.asset(
-                                        "assets/icons/chat.svg",
-                                        height: 24.0,
-                                        color: Palette.offwhite)),
-                                NavButton(
-                                    index: 2,
-                                    child: SvgPicture.asset(
-                                        "assets/icons/home.svg",
-                                        height: 24.0,
-                                        color: Palette.offwhite)),
-                                NavButton(
-                                    index: 3,
-                                    child: SvgPicture.asset(
-                                        "assets/icons/heart.svg",
-                                        height: 24.0,
-                                        color: Palette.offwhite)),
-                                NavButton(
-                                    index: 4,
-                                    child: SvgPicture.asset(
-                                        "assets/icons/user.svg",
-                                        height: 24.0,
-                                        color: Palette.offwhite)),
-                              ],
-                            ),
+                  child: Card(
+                    color: Colors.transparent,
+                    elevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(34.0)),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 2.0, horizontal: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              NavButton(
+                                  index: 0,
+                                  child: SvgPicture.asset(
+                                      "assets/icons/search.svg",
+                                      height: 24.0,
+                                      color: Palette.offwhite)),
+                              NavButton(
+                                  index: 1,
+                                  child: SvgPicture.asset(
+                                      "assets/icons/chat.svg",
+                                      height: 24.0,
+                                      color: Palette.offwhite)),
+                              NavButton(
+                                  index: 2,
+                                  child: SvgPicture.asset(
+                                      "assets/icons/home.svg",
+                                      height: 24.0,
+                                      color: Palette.offwhite)),
+                              NavButton(
+                                  index: 3,
+                                  child: SvgPicture.asset(
+                                      "assets/icons/heart.svg",
+                                      height: 24.0,
+                                      color: Palette.offwhite)),
+                              NavButton(
+                                  index: 4,
+                                  child: SvgPicture.asset(
+                                      "assets/icons/user.svg",
+                                      height: 24.0,
+                                      color: Palette.offwhite)),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   )),
             ),
@@ -144,14 +139,14 @@ class NavButton extends ConsumerWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       decoration: BoxDecoration(
-          color: currentIndex == index ? Palette.primary : Palette.black,
+          color: currentIndex == index ? Palette.primary : Colors.black45,
           shape: BoxShape.circle),
       child: IconButton(
           splashRadius: 26.0,
           iconSize: 32,
           style: ElevatedButton.styleFrom(
               backgroundColor:
-                  currentIndex == index ? Colors.transparent : Palette.black),
+                  currentIndex == index ? Colors.transparent : Colors.black45),
           onPressed: () {
             ref
                 .read(bottomNavIndexProvider.notifier)

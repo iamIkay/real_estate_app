@@ -33,8 +33,6 @@ class _HousePinState extends State<HousePin>
     _animation = Tween<double>(begin: 100.0, end: 40.0).animate(
       CurvedAnimation(parent: _controller!, curve: Curves.easeInOut),
     );
-
-    // _controller!.forward();
   }
 
   @override
@@ -78,7 +76,7 @@ class _HousePinState extends State<HousePin>
                               duration: const Duration(milliseconds: 700),
                               opacity: _animation?.value == 100 ? 1 : 0,
                               child: AppText(
-                                "₦ ${(Random().nextDouble() * 256).toStringAsFixed(2)} m",
+                                "N ${(Random().nextDouble() * 256).toStringAsFixed(2)} m",
                                 align: TextAlign.center,
                                 maxLines: 1,
                                 color: Colors.white,

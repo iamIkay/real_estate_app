@@ -51,67 +51,71 @@ class _ApartmentListState extends State<ApartmentList>
       child: AnimatedBuilder(
           animation: _animation!,
           builder: (context, child) {
-            return AnimatedOpacity(
-              duration: const Duration(milliseconds: 100),
-              opacity: _animation!.value == 0.1 ? 0 : 1,
-              child: DraggableScrollableSheet(
-                initialChildSize: _animation!.value, // minchildSize, //0.4,
-                minChildSize: _animation!.value, //minchildSize, //0.4,
-                maxChildSize: 0.80,
-                builder: (context, scrollController) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(24.0),
+            return Container(
+              margin: const EdgeInsets.only(top: 40.0),
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 100),
+                opacity: _animation!.value == 0.1 ? 0 : 1,
+                child: DraggableScrollableSheet(
+                  initialChildSize: _animation!.value, // minchildSize, //0.4,
+                  minChildSize: _animation!.value, //minchildSize, //0.4,
+                  maxChildSize: 0.84,
+                  builder: (context, scrollController) {
+                    return Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24.0),
+                        ),
                       ),
-                    ),
-                    padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-                    clipBehavior: Clip.hardEdge,
-                    child: ClipRRect(
+                      padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
                       clipBehavior: Clip.hardEdge,
-                      child: ListView(
-                        controller: scrollController,
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.only(bottom: 110.0),
-                        children: [
-                          Container(
-                              height: 190.0,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  image: const DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image:
-                                          AssetImage("assets/apt-image.jpg"))),
-                              alignment: Alignment.bottomCenter,
-                              child: const TitleSlideBar("Gladvoka St. 25",
-                                  isHeadliner: true)),
-                          const SizedBox(height: 10.0),
-                          GridView.count(
-                            shrinkWrap: true,
-                            crossAxisCount: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.zero,
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 10.0,
-                            children: List.generate(10, (index) {
-                              return Container(
+                      child: ClipRRect(
+                        clipBehavior: Clip.hardEdge,
+                        child: ListView(
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(bottom: 110.0),
+                          children: [
+                            Container(
                                 height: 190.0,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.0),
                                     image: const DecorationImage(
                                         fit: BoxFit.cover,
                                         image: AssetImage(
-                                            "assets/apt-image2.jpg"))),
-                                child: const TitleSlideBar("Tafawa St. 24"),
-                              );
-                            }),
-                          ),
-                        ],
+                                            "assets/apt-image.jpg"))),
+                                alignment: Alignment.bottomCenter,
+                                child: const TitleSlideBar(
+                                    "Gladvoka St. 25", 100,
+                                    isHeadliner: true)),
+                            const SizedBox(height: 10.0),
+                            GridView.count(
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              mainAxisSpacing: 10.0,
+                              crossAxisSpacing: 10.0,
+                              children: List.generate(10, (index) {
+                                return Container(
+                                  height: 190.0,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      image: const DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: AssetImage(
+                                              "assets/apt-image2.jpg"))),
+                                  child: TitleSlideBar("Tafawa St. 24", index),
+                                );
+                              }),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             );
           }),
@@ -119,10 +123,14 @@ class _ApartmentListState extends State<ApartmentList>
   }
 }
 
+bool animated = false;
+
 class TitleSlideBar extends StatefulWidget {
   final String location;
   final bool isHeadliner;
-  const TitleSlideBar(this.location, {this.isHeadliner = false, super.key});
+  final int index;
+  const TitleSlideBar(this.location, this.index,
+      {this.isHeadliner = false, super.key});
 
   @override
   State<TitleSlideBar> createState() => _TitleSlideBarState();
@@ -131,8 +139,6 @@ class TitleSlideBar extends StatefulWidget {
 class _TitleSlideBarState extends State<TitleSlideBar>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
-  bool _isDisposed = false;
-
   Animation<double>? _animation;
 
   @override
@@ -144,14 +150,15 @@ class _TitleSlideBarState extends State<TitleSlideBar>
       duration: const Duration(seconds: 3),
     );
 
-    _animation = Tween<double>(begin: 0, end: 1000).animate(
+    _animation = Tween<double>(begin: animated ? 1000 : 0, end: 1000).animate(
       CurvedAnimation(parent: _controller!, curve: Curves.easeInOut),
     );
+
+    setState(() {});
   }
 
   @override
   void dispose() {
-    _isDisposed = true;
     _controller?.dispose();
     super.dispose();
   }
@@ -159,10 +166,10 @@ class _TitleSlideBarState extends State<TitleSlideBar>
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: UniqueKey(),
+      key: ObjectKey(widget.index),
       onVisibilityChanged: (visibility) {
-        if (!_isDisposed && _controller != null) {
-          _controller!.forward();
+        if (_controller?.status != AnimationStatus.completed) {
+          _controller!.forward().then((_) => animated = true);
         }
       },
       child: AnimatedBuilder(
